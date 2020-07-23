@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>weather</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <style>
+         body{
+            background-image:url(../static/weather1.jpg);
+            background-size:cover;
+            background-repeat:no-repeat;
+        }
+    </style>
+
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md ">
+            <a class="navbar-brand text-white rounded-lg pt-1 pb-1 pl-2 pr-2" href="#" style="font-family:cursive; font-size:23px;">Weather-Forecast</a>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-6">
+                {% with messages= get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category,message in messages %}
+                            <div class="alert-{{ category }} pt-2 pb-2">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <div class="container mt-4">
+                    <form class="form" method="POST">
+                    <div class="row mt-4">
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control rounded-lg" name="find" style="height:50px;" placeholder="Enter a City" required>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary btn-block shadow" style="height:50px;" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+        </div>
+    </div>
+    <main class="content " style="margin-top:65px;">
+        <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-sm-3 mt-4">
+                <div class="card pt-4 bg-light rounded-lg shadow-lg " style="height:350px; ">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4 mt-4">{{ weather["city"] }}</h1>
+                        <p class="card-text text-center display-4 mt-4">{{ weather["description"] }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt-4">
+                 <div class="card pt-4 bg-light rounded-lg shadow-lg" style="height:350px; ">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4 mt-4">Temperature : </h1>
+                        <p class="card-text text-center mt-4 display-4">{{ (weather["temp"]-273)|round(2, 'floor') }} <sup>*</sup>C</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt-4">
+                 <div class="card pt-4 bg-light rounded-lg shadow-lg" style="height:350px; ">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4 mt-4">Humidity : </h1>
+                        <p class="card-text text-center mt-4 display-4">{{ weather["humidity"] }} %</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt-4">
+                 <div class="card pt-4 bg-light rounded-lg shadow-lg" style="height:350px;">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4 mt-4">Pressure : </h1>
+                        <p class="card-text text-center mt-4 display-4">{{ weather["pressure"] }} mb</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
